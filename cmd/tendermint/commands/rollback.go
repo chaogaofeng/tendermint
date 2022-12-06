@@ -56,14 +56,14 @@ func loadStateAndBlockStore(config *cfg.Config) (*store.BlockStore, state.Store,
 	dbType := dbm.BackendType(config.DBBackend)
 
 	// Get BlockStore
-	blockStoreDB, err := dbm.NewDB("blockstore", dbType, config.DBDir())
+	blockStoreDB, err := dbm.NewDB("blockstore", dbType, config.DBDir(), config.GetOtherPaths())
 	if err != nil {
 		return nil, nil, err
 	}
 	blockStore := store.NewBlockStore(blockStoreDB)
 
 	// Get StateStore
-	stateDB, err := dbm.NewDB("state", dbType, config.DBDir())
+	stateDB, err := dbm.NewDB("state", dbType, config.DBDir(), config.GetOtherPaths())
 	if err != nil {
 		return nil, nil, err
 	}
